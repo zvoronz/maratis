@@ -13,6 +13,10 @@ env_local = env.Clone()
 # include dirs
 env_local.AppendUnique(CPPPATH = ['.'] )
 
+# Relax Compiler errors
+if sys.platform=='linux2':
+    env_local.AppendUnique(CXXFLAGS=['-fpermissive'])
+
 # get list of files (recursive)
 files = pyutils.getFilesRecursive(Dir('.').srcnode().abspath,'*.c*')
 
