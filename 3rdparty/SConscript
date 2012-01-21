@@ -47,3 +47,7 @@ SConscript( 'tinyxml/SConscript',
 SConscript( 'bullet/SConscript',
             exports={'env':env_local} )
 
+# build npk	
+SConscript( 'npk/SConscript',
+            exports={'env':env_local} )
+
