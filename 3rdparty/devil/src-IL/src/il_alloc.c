@@ -17,7 +17,7 @@
 	#ifdef _DEBUG 
 		#define _CRTDBG_MAP_ALLOC
 		#include <stdlib.h>
-		#ifndef _WIN32_WCE  // Does not have this header.
+		#if !defined(_WIN32_WCE) && !defined(__CYGWIN__) // Does not have this header.
 			#include <crtdbg.h>
 		#endif
 	#endif

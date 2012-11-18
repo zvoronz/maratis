@@ -19,6 +19,9 @@ env_local.AppendUnique(CPPPATH = ['.',
 								  '../zlib'] )
 # additional defines
 env_local.AppendUnique(CPPDEFINES = 'IL_STATIC_LIB')
+if (env['build_mode']=='debug' and sys.platform=='cygwin'):
+	env_local.AppendUnique(CPPDEFINES = 'IL_NO_UTX')
+
 # lib dirs
 env_local.AppendUnique(LIBPATH = ['../libpng',
                                   '../libjpeg',

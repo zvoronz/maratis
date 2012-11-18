@@ -16,7 +16,6 @@
 #ifndef IL_NO_UTX
 #include "il_utx.h"
 
-
 //! Reads a UTX file
 ILboolean ilLoadUtx(ILconst_string FileName)
 {

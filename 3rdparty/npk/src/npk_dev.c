@@ -113,7 +113,11 @@ NPK_RESULT npk_flush( NPK_HANDLE handle )
     if( handle != 0 )
     {
 #ifdef NPK_PLATFORM_WINDOWS
-    _commit( handle );
+    #ifndef __CYGWIN__
+		_commit( handle );
+	#else
+		fsync( handle ); // __commit on cygwin seems to be in crtdll.a but could crash
+	#endif
 #else
     fsync( handle );
 #endif
