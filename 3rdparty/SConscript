@@ -51,3 +51,7 @@ SConscript( 'bullet/SConscript',
 SConscript( 'npk/SConscript',
             exports={'env':env_local} )
 
+# build assimp	
+SConscript( 'assimp/SConscript',
+            exports={'env':env_local} )
+
