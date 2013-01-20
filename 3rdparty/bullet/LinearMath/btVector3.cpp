@@ -19,6 +19,10 @@
 #define BT_USE_SSE_IN_API
 #endif
 
+#if DEBUG
+#include <string>
+#endif
+
 #include "btVector3.h"
 
 #if defined (BT_USE_SSE) || defined (BT_USE_NEON)
