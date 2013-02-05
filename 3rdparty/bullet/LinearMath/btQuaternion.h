@@ -285,7 +285,7 @@ public:
    * @param q The other quaternion */
 	btScalar dot(const btQuaternion& q) const
 	{
-#if defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
+#if defined BT_USE_SIMD_VECTOR3 && defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
 		__m128	vd;
 		
 		vd = _mm_mul_ps(mVec128, q.mVec128);
@@ -498,7 +498,7 @@ public:
 	  btAssert(magnitude > btScalar(0));
 
     btScalar product = dot(q) / magnitude;
-    if (btFabs(product) != btScalar(1))
+    if (btFabs(product) < btScalar(1))
 		{
       // Take care of long angle case see http://en.wikipedia.org/wiki/Slerp
       const btScalar sign = (product < 0) ? btScalar(-1) : btScalar(1);
@@ -835,7 +835,7 @@ quatRotate(const btQuaternion& rotation, const btVector3& v)
 {
 	btQuaternion q = rotation * v;
 	q *= rotation.inverse();
-#if defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
+#if defined BT_USE_SIMD_VECTOR3 && defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
 	return btVector3(_mm_and_ps(q.get128(), btvFFF0fMask));
 #elif defined(BT_USE_NEON)
     return btVector3((float32x4_t)vandq_s32((int32x4_t)q.get128(), btvFFF0Mask));

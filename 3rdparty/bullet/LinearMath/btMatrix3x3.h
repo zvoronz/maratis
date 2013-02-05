@@ -207,7 +207,7 @@ public:
 		btFullAssert(d != btScalar(0.0));
 		btScalar s = btScalar(2.0) / d;
     
-    #if defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
+    #if defined BT_USE_SIMD_VECTOR3 && defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
         __m128	vs, Q = q.get128();
 		__m128i Qi = btCastfTo128i(Q);
         __m128	Y, Z;
@@ -341,7 +341,7 @@ public:
 	* @param m The array to be filled */
 	void getOpenGLSubMatrix(btScalar *m) const 
 	{
-#if defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
+#if defined BT_USE_SIMD_VECTOR3 && defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
         __m128 v0 = m_el[0].mVec128;
         __m128 v1 = m_el[1].mVec128;
         __m128 v2 = m_el[2].mVec128;    //  x2 y2 z2 w2
@@ -740,7 +740,7 @@ public:
 SIMD_FORCE_INLINE btMatrix3x3& 
 btMatrix3x3::operator*=(const btMatrix3x3& m)
 {
-#if defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
+#if defined BT_USE_SIMD_VECTOR3 && defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE)
     __m128 rv00, rv01, rv02;
     __m128 rv10, rv11, rv12;
     __m128 rv20, rv21, rv22;
@@ -953,7 +953,7 @@ btMatrix3x3::determinant() const
 SIMD_FORCE_INLINE btMatrix3x3 
 btMatrix3x3::absolute() const
 {
-#if (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
+#if defined BT_USE_SIMD_VECTOR3 && (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
     return btMatrix3x3(
             _mm_and_ps(m_el[0].mVec128, btvAbsfMask),
             _mm_and_ps(m_el[1].mVec128, btvAbsfMask),
@@ -974,7 +974,7 @@ btMatrix3x3::absolute() const
 SIMD_FORCE_INLINE btMatrix3x3 
 btMatrix3x3::transpose() const 
 {
-#if (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
+#if defined BT_USE_SIMD_VECTOR3 && (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
     __m128 v0 = m_el[0].mVec128;
     __m128 v1 = m_el[1].mVec128;
     __m128 v2 = m_el[2].mVec128;    //  x2 y2 z2 w2
@@ -1031,7 +1031,7 @@ btMatrix3x3::inverse() const
 SIMD_FORCE_INLINE btMatrix3x3 
 btMatrix3x3::transposeTimes(const btMatrix3x3& m) const
 {
-#if (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
+#if defined BT_USE_SIMD_VECTOR3 && (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
     // zeros w
 //    static const __m128i xyzMask = (const __m128i){ -1ULL, 0xffffffffULL };
     __m128 row = m_el[0].mVec128;
@@ -1151,7 +1151,7 @@ operator*(const btMatrix3x3& m, const btVector3& v)
 SIMD_FORCE_INLINE btVector3
 operator*(const btVector3& v, const btMatrix3x3& m)
 {
-#if (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
+#if defined BT_USE_SIMD_VECTOR3 && (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
 
     const __m128 vv = v.mVec128;
 
@@ -1191,7 +1191,7 @@ operator*(const btVector3& v, const btMatrix3x3& m)
 SIMD_FORCE_INLINE btMatrix3x3 
 operator*(const btMatrix3x3& m1, const btMatrix3x3& m2)
 {
-#if (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
+#if defined BT_USE_SIMD_VECTOR3 && (defined (BT_USE_SSE_IN_API) && defined (BT_USE_SSE))
 
     __m128 m10 = m1[0].mVec128;  
     __m128 m11 = m1[1].mVec128;
