@@ -21,6 +21,6 @@ if sys.platform=='linux2':
 files = pyutils.getFilesRecursive(Dir('.').srcnode().abspath,'*.c*')
 
 # build library
+env_local.AppendUnique(CPPDEFINES = ['RECALCULATE_AABB_RAYCAST'])
 bullet_lib  = env_local.StaticLibrary('bullet',files)
 Return('bullet_lib')
-
